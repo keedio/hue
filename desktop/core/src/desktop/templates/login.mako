@@ -25,8 +25,18 @@ ${ commonheader("Welcome to Hue", "login", user, "50px") | n,unicode }
 
 <link rel="stylesheet" href="${ static('desktop/ext/chosen/chosen.min.css') }">
 <style type="text/css">
+  @font-face {
+      font-family: Dsignes Bold;
+      src: url("${ static('desktop/ext/fonts/keedio/DsignesB.ttf') }");
+  }
+
   body {
-    background-color: #FFF;
+    font-family: Dsignes Bold;
+    background: url("${ static('desktop/art/keedio/fondo.png') }") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
   }
 
   @-webkit-keyframes spinner {
@@ -43,13 +53,31 @@ ${ commonheader("Welcome to Hue", "login", user, "50px") | n,unicode }
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
-    background: #FFF url("${ static('desktop/art/hue-login-logo-ellie.png') }") 50% 2px no-repeat;
+    background: #FFF url("${ static('desktop/art/keedio/logo-principal.png') }") 50% 2px no-repeat;
     width: 130px;
     height: 130px;
     -webkit-border-radius: 65px;
     -moz-border-radius: 65px;
     border-radius: 65px;
-    border: 1px solid #EEE;
+    //border: 1px solid #EEE;
+  }
+
+  .btn-primary {
+    background: #352B5B;
+    color: #FFFFFF;
+    font-family: Dsignes Bold;      
+  }
+
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, 
+  .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #666484;
+    color: #FFFFFF;      
+  }
+
+  .btn-primary:disabled,
+  .btn-primary[disabled] {
+    background: #837D93;
+    color: #FFFFFF;
   }
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
@@ -68,6 +96,7 @@ ${ commonheader("Welcome to Hue", "login", user, "50px") | n,unicode }
   }
 
   .login-content {
+    background: none;
     width: 360px;
     display: block;
     margin-left: auto;
