@@ -63,6 +63,8 @@ def coerce_password_from_script(script):
   # trailing newline.
   return stdout.strip('\n')
 
+DEFAULT_THEME = 'default'
+HUE_THEMES = ['default', 'keedio']
 
 HTTP_HOST = Config(
   key="http_host",
