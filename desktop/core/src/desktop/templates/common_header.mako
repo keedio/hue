@@ -51,7 +51,7 @@ from django.utils.translation import ugettext as _
 
   <link href="${ static('desktop/ext/css/bootplus.css') }" rel="stylesheet">
   <link href="${ static('desktop/ext/css/font-awesome.min.css') }" rel="stylesheet">
-  <link href="${ static('desktop/css/hue3.css') }" rel="stylesheet">  
+  <link href="${ static('desktop/css/hue3.css') }" rel="stylesheet">
   <link href="${ static('desktop/ext/css/fileuploader.css') }" rel="stylesheet">
 
   <style type="text/css">
@@ -337,47 +337,6 @@ from django.utils.translation import ugettext as _
         window.clearTimeout(_skew);
       });
     });
-
-    var oldTheme = '';
-
-    function changeTheme(pTheme) {                  
-      console.log(status);
-      $.ajax({
-              url: "/desktop/change_theme/",           
-              dataType: 'json',   
-              data: { pTheme: pTheme },
-              method: 'POST',
-              success: function(response) {                           
-                          if (response === undefined) {
-                            console.log("UNDEFINED");
-                          }
-                          else {
-                            //Remove old css theme.
-                            var targetelement="link"; //determine element type to create nodelist from
-                            var targetattr="href"; //determine corresponding attribute to test for
-                            var allsuspects=document.getElementsByTagName(targetelement)
-                            for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
-                            if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf("/static/desktop/css/custom/" + oldTheme + ".css")!=-1)
-                                allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
-                            }
-                            //Add new css theme.
-                            var newTheme=document.createElement("link")
-                                newTheme.setAttribute("rel", "stylesheet")
-                                newTheme.setAttribute("type", "text/css")
-                                newTheme.setAttribute("href", "/static/desktop/css/custom/" + response + ".css");
-                            document.getElementsByTagName("head")[0].appendChild(newTheme);
-                            //Update css theme.
-                            oldTheme = response;
-                          }  
-                       },
-              error: function(xhr, status, error) {
-                      console.log(xhr);
-                      console.log(status);
-                      console.log(error);
-                     }    
-          });
-
-    }
   </script>
 </head>
 <body>
@@ -400,8 +359,8 @@ from django.utils.translation import ugettext as _
 %>
 
 <div class="navigator">
-  Tema ${ default_theme } por defecto
   <div class="pull-right">
+
   % if user.is_authenticated() and section != 'login':
   <ul class="nav nav-pills">
     <li class="divider-vertical"></li>
@@ -410,23 +369,7 @@ from django.utils.translation import ugettext as _
     % endif
     % if 'jobbrowser' in apps:
     <li><a title="${_('Manage jobs')}" rel="navigator-tooltip" href="/${apps['jobbrowser'].display_name}"><i class="fa fa-list-alt"></i><span class="hideable">&nbsp;${_('Job Browser')}&nbsp;</span><span id="jobBrowserCount" class="badge badge-warning hide" style="padding-top:0;padding-bottom: 0"></span></a></li>
-    % endif        
-
-    <li class="dropdown">      
-      <a title="${ _('Theme') }" rel="navigator-tooltip" href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-eye fa-fw"></i>&nbsp;<span class="hideable">${ _('Theme') }&nbsp;</span><b class="caret"></b></a>      
-      <ul class="dropdown-menu pull-right" role="menu">
-        <li>              
-          % for theme in conf.HUE_THEMES:
-            % if conf.DEFAULT_THEME == theme:              
-              <a href="#" onclick="changeTheme('${theme}');return false;"><i class="fa fa-check-square-o fa-fw"></i>&nbsp;&nbsp;${_(theme)}</a>          
-            % else:              
-              <a href="#" onclick="changeTheme('${theme}');return false;"><i class="fa fa-square-o fa-fw"></i>&nbsp;&nbsp;${_(theme)}</a>          
-            % endif
-          % endfor
-        </li>        
-      </ul>
-    </li>              
-
+    % endif
     <li class="dropdown">
       <a title="${ _('Administration') }" rel="navigator-tooltip" href="index.html#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-cogs"></i>&nbsp;<span class="hideable">${user.username}&nbsp;</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
@@ -639,3 +582,4 @@ from django.utils.translation import ugettext as _
     <button class="close">&times;</button>
     <span class="message"></span>
 </div>
+

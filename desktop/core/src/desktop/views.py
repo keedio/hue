@@ -48,7 +48,7 @@ from desktop.lib.i18n import smart_str
 from desktop.lib.paths import get_desktop_root
 from desktop.lib.thread_util import dump_traceback
 from desktop.log.access import access_log_level, access_warn
-from desktop.models import UserPreferences, Settings, UserSession
+from desktop.models import UserPreferences, Settings
 from desktop import appmanager
 
 
@@ -64,14 +64,12 @@ def home(request):
   docs = _get_docs(request.user)
 
   apps = appmanager.get_apps_dict(request.user)
-  default_theme = request.session['set_theme'] if 'set_theme' in request.session else 'default'
 
   return render('home.mako', request, {
     'apps': apps,
     'json_documents': json.dumps(massaged_documents_for_json(docs, request.user)),
     'json_tags': json.dumps(massaged_tags_for_json(docs, request.user)),
-    'tours_and_tutorials': Settings.get_settings().tours_and_tutorials,
-    'default_theme': default_theme
+    'tours_and_tutorials': Settings.get_settings().tours_and_tutorials
   })
 
 
@@ -362,11 +360,6 @@ def commonheader(title, section, user, padding="90px"):
   current_app = None
   other_apps = []
   if user.is_authenticated():
-
-    user_sessions = UserSession.objects.filter(user = user)
-
-    print "USER SESSION: ", user_sessions
-
     apps = appmanager.get_apps(user)
     apps_list = appmanager.get_apps_dict(user)
     for app in apps:
@@ -377,7 +370,7 @@ def commonheader(title, section, user, padding="90px"):
       if section == app.display_name:
         current_app = app
   else:
-    apps_list = []  
+    apps_list = []
 
   return django_mako.render_to_string("common_header.mako", {
     'current_app': current_app,
@@ -388,8 +381,7 @@ def commonheader(title, section, user, padding="90px"):
     'padding': padding,
     'user': user,
     'is_demo': desktop.conf.DEMO_ENABLED.get(),
-    'is_ldap_setup': 'desktop.auth.backend.LdapBackend' in desktop.conf.AUTH.BACKEND.get(),
-    'default_theme': desktop.conf.DEFAULT_THEME
+    'is_ldap_setup': 'desktop.auth.backend.LdapBackend' in desktop.conf.AUTH.BACKEND.get()
   })
 
 def commonshare():
@@ -495,12 +487,3 @@ def check_config_ajax(request):
                 request,
                 dict(error_list=error_list),
                 force_template=True)
-
-def _get_theme(request):  
-  return request.session['set_theme']
-
-def change_theme(request):
-  if request.method == 'POST' and request.is_ajax():        
-    request.session['set_theme'] = request.POST['pTheme'] if 'set_theme' in request.session else 'default'
-  
-  return JsonResponse(request.session['set_theme'], safe=False)

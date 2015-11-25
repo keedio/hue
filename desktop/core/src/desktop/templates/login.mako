@@ -203,7 +203,7 @@ ${ commonheader("Welcome to Hue", "login", user, "50px") | n,unicode }
             ${_('Since this is your first time logging in, pick any username and password. Be sure to remember these, as')}
             <strong>${_('they will become your Hue superuser credentials.')}</strong>
             % if is_password_policy_enabled():
-        <p>${get_password_hint()}</p>
+	      <p>${get_password_hint()}</p>
             % endif
           </div>
         %endif
