@@ -35,12 +35,19 @@ from desktop import appmanager
 from desktop.lib.i18n import force_unicode
 from desktop.lib.exceptions_renderable import PopupException
 
+from django.conf import settings
+from django.db import models
+from django.contrib.sessions.models import Session
+
 
 LOG = logging.getLogger(__name__)
 
 
 SAMPLE_USERNAME = 'sample'
 
+class UserSession(models.Model):
+  user = models.ForeignKey(settings.AUTH_USER_MODEL)
+  session = models.ForeignKey(Session) 
 
 class UserPreferences(models.Model):
   """Holds arbitrary key/value strings."""

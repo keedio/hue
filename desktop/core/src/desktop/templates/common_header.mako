@@ -341,22 +341,42 @@ from django.utils.translation import ugettext as _
     var oldTheme = '';
 
     function changeTheme(pTheme) {                  
-      //Remove old css theme.
-      var targetelement="link"; //determine element type to create nodelist from
-      var targetattr="href"; //determine corresponding attribute to test for
-      var allsuspects=document.getElementsByTagName(targetelement)
-      for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
-      if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf("/static/desktop/css/custom/" + oldTheme + ".css")!=-1)
-          allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
-      }
-      //Add new css theme.
-      var newTheme=document.createElement("link")
-          newTheme.setAttribute("rel", "stylesheet")
-          newTheme.setAttribute("type", "text/css")
-          newTheme.setAttribute("href", "/static/desktop/css/custom/" + pTheme + ".css");
-      document.getElementsByTagName("head")[0].appendChild(newTheme);
-      //Update css theme.
-      oldTheme = pTheme;      
+      console.log(status);
+      $.ajax({
+              url: "/desktop/change_theme/",           
+              dataType: 'json',   
+              data: { pTheme: pTheme },
+              method: 'POST',
+              success: function(response) {                           
+                          if (response === undefined) {
+                            console.log("UNDEFINED");
+                          }
+                          else {
+                            //Remove old css theme.
+                            var targetelement="link"; //determine element type to create nodelist from
+                            var targetattr="href"; //determine corresponding attribute to test for
+                            var allsuspects=document.getElementsByTagName(targetelement)
+                            for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+                            if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf("/static/desktop/css/custom/" + oldTheme + ".css")!=-1)
+                                allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+                            }
+                            //Add new css theme.
+                            var newTheme=document.createElement("link")
+                                newTheme.setAttribute("rel", "stylesheet")
+                                newTheme.setAttribute("type", "text/css")
+                                newTheme.setAttribute("href", "/static/desktop/css/custom/" + response + ".css");
+                            document.getElementsByTagName("head")[0].appendChild(newTheme);
+                            //Update css theme.
+                            oldTheme = response;
+                          }  
+                       },
+              error: function(xhr, status, error) {
+                      console.log(xhr);
+                      console.log(status);
+                      console.log(error);
+                     }    
+          });
+
     }
   </script>
 </head>
@@ -380,8 +400,8 @@ from django.utils.translation import ugettext as _
 %>
 
 <div class="navigator">
+  Tema ${ default_theme } por defecto
   <div class="pull-right">
-
   % if user.is_authenticated() and section != 'login':
   <ul class="nav nav-pills">
     <li class="divider-vertical"></li>
@@ -619,4 +639,3 @@ from django.utils.translation import ugettext as _
     <button class="close">&times;</button>
     <span class="message"></span>
 </div>
-

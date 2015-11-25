@@ -73,6 +73,8 @@ dynamic_patterns += patterns('desktop.views',
   (r'^desktop/debug/check_config_ajax$', 'check_config_ajax'),
   (r'^desktop/log_frontend_event$', 'log_frontend_event'),
 
+  (r'^desktop/change_theme/$', 'change_theme'),
+
   # Jasmine
   (r'^jasmine', 'jasmine'),
 
