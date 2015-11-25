@@ -353,6 +353,13 @@ a.toggle-display-link:hover {
 
 code {
   line-height: 1.4em;
+  color: #BA3142;
+  font-weight: bold;
+}
+
+.table-striped tr td {
+  color: #55A08E;
+  font-weight: bold;
 }
 
 .noPadding {
@@ -722,7 +729,7 @@ tr.odd.gradeA td.sorting_1 {
 }
 
 tr.odd.gradeA td.sorting_2 {
-  background-color: #d1ffd1;
+  background-color: #d1ffd1
 }
 
 tr.odd.gradeA td.sorting_3 {
@@ -1410,7 +1417,7 @@ a#advanced-btn:hover {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #338BB8;
+  background-color: #352B5B;
   height: 28px;
   z-index: 1033;
   min-width: 740px;
@@ -1452,7 +1459,7 @@ a#advanced-btn:hover {
 }
 
 .navigator .nav-pills > li > a {
-  color: #DBE8F1;
+  color: #87BAAC;
   font-weight: bold;
   margin-bottom: 2px;
   margin-top: 2px;
@@ -1470,10 +1477,18 @@ a#advanced-btn:hover {
 .navigator .dropdown-menu > li > a {
   padding-left: 5px;
   padding-right: 30px;
+  color: #352B5B; 
+}
+
+.navigator .dropdown-menu > li > a:hover {
+  padding-left: 5px;
+  padding-right: 30px;
+  color: #55A08E;
 }
 
 .navigator .dropdown-menu > li > a > img {
   padding-right: 6px;
+  color: #352B5B;   
 }
 
 .navigator .nav-pills > li.dropdown > a {
@@ -1497,13 +1512,13 @@ a#advanced-btn:hover {
   font-size: 20px;
   padding-top: 13px;
   padding-left: 0;
-  color: #338BB8;
+  color: #352B5B;
   cursor: pointer;
 }
 
 .currentApp a {
   font-size: 20px !important;
-  color: #338BB8 !important;
+  color: #352B5B !important;
   padding: 0 !important;
   margin-top: -4px !important;
   border: none !important;
@@ -1511,7 +1526,7 @@ a#advanced-btn:hover {
 }
 
 .currentApp a:focus, .currentApp a:hover {
-  color: #338BB8 !important;
+  color: #666484 !important;
 }
 
 .currentApp img {
@@ -2044,3 +2059,65 @@ pre {
 .leaflet-search-command input, .leaflet-search-command label {
   margin-bottom: 0;
 }
+
+
+/* ***************************************************************************************************
+   CUSTOM
+ ************************************************************************************************** */
+
+@font-face {
+  font-family: Dsignes Light;
+  src: url('../../desktop/ext/fonts/keedio/DsignesL.ttf');
+}
+
+@font-face {
+    font-family: Dsignes Bold;
+    src: url('../../desktop/ext/fonts/keedio/DsignesB.ttf');
+}
+
+body {    
+  font-family: Dsignes Bold;    
+  height: 100%; 
+  background: url('../../desktop/art/keedio/fondo.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.btn-primary {
+  background: #352B5B;
+  color: #FFFFFF;
+  font-family: Dsignes Bold;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, 
+.btn-primary.active, .open > .dropdown-toggle.btn-primary {
+  background: #666484;
+  color: #FFFFFF;      
+}
+
+.btn-primary:disabled,
+.btn-primary[disabled] {
+  background: #837D93;
+  color: #FFFFFF;
+}
+
+.step {
+  color: #55A08E;
+}
+
+.step:active {
+  color: #352B5B;
+}
+
+.step:hover {
+  color: #666484;
+}
+
+.card .card-heading.simple{
+  font-size:20px;
+  font-weight:300;
+  color:#352B5B;
+  border-bottom:1px 
+  solid #e5e5e5}
